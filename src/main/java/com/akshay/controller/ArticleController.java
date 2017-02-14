@@ -31,14 +31,9 @@ public class ArticleController {
 	private ArticleService articleService = new ArticleService();
 
 	@GetMapping
-	public List<Article> index(ModelMap modelMap) {
+	public List<Article> index() {
 		List<Article> articleList;
 		articleList = articleService.listService();
-		CategoryService categoryService = new CategoryService();
-		List<Category> categoryList = categoryService.listCategoryService();
-		modelMap.addAttribute("CATEGORY_LIST", categoryList);
-		modelMap.addAttribute("update", 0);
-		modelMap.addAttribute("ARTICLE_LIST", articleList);
 		return articleList;
 	}
 
@@ -46,8 +41,6 @@ public class ArticleController {
 	public List<Article> indexByCategory(ModelMap modelMap, @RequestParam("category") String category) {
 		CategoryService categoryService = new CategoryService();
 		List<Article> articleList = categoryService.viewByCategoryService(category);
-		modelMap.addAttribute("update", 0);
-		modelMap.addAttribute("ARTICLE_LIST", articleList);
 		return articleList;
 	}
 
@@ -55,8 +48,6 @@ public class ArticleController {
 	public List<Comment> indexComments(ModelMap modelMap, @RequestParam("articleId") int articleId) {
 		CommentService commentService = new CommentService();
 		List<Comment> commentList = commentService.listByArticleIdService(articleId);
-		modelMap.addAttribute("update", 0);
-		modelMap.addAttribute("COMMENT_LIST", commentList);
 		return commentList;
 		}
 	
