@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.akshay.exception.ServiceException;
 import com.akshay.model.Article;
-import com.akshay.model.Category;
 import com.akshay.model.Comment;
 import com.akshay.model.User;
 import com.akshay.service.ArticleService;
@@ -38,14 +35,14 @@ public class ArticleController {
 	}
 
 	@GetMapping("viewbycategory")
-	public List<Article> indexByCategory(ModelMap modelMap, @RequestParam("category") String category) {
+	public List<Article> indexByCategory(@RequestParam("category") String category) {
 		CategoryService categoryService = new CategoryService();
 		List<Article> articleList = categoryService.viewByCategoryService(category);
 		return articleList;
 	}
 
 	@GetMapping("comments")
-	public List<Comment> indexComments(ModelMap modelMap, @RequestParam("articleId") int articleId) {
+	public List<Comment> indexComments(@RequestParam("articleId") int articleId) {
 		CommentService commentService = new CommentService();
 		List<Comment> commentList = commentService.listByArticleIdService(articleId);
 		return commentList;
@@ -54,7 +51,7 @@ public class ArticleController {
 	
 
 	@GetMapping("/other")
-	public List<Article> indexOtherUsers(ModelMap modelMap, @RequestParam("userId") int userId) {
+	public List<Article> indexOtherUsers(@RequestParam("userId") int userId) {
 		List<Article> articleList = null;
 		try {
 			articleList = articleService.listOtherUserService(userId);
